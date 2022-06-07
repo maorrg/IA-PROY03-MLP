@@ -1,0 +1,7 @@
+precision, recall, f1_score, epoch, activation_function
+1,2,2,1,sigmoide
+1,3,2,2,sigmoide
+1,3,2,1,relu
+7,3,2,2,relu
+3,2,1,1,tanh
+2,3,6,2,tanh

@@ -1,0 +1,20 @@
+Parámetros:
+a) Número de características
+b) Número de capas ocultas
+c) Número de neuronas por cada capa oculta
+d) Número de neuronas en la capa de salida
+e) Tipo de función de activación
+
+Funciones de activación:
+- Sigmoide
+- Tanh
+- RELU
+
+Valores:
+- Precision <- calidad de la data que tienes (importa el ratio de datos buenos)
+- Recall <- cantidad de data buena (importa la cantidad total de datos)
+- F1 Score <- Es la media armónica entre la precisión y el recall
+
+Gráficas:
+a) Precisión, Recall y F1 Score para el training y testing (para cada epoch) [para cada uno de los parámetros].
+b) Curva de la función de perdida.
