@@ -21,11 +21,11 @@ int main () {
     const auto random = [&]() { return dist(random_engine); };
 
 
-    DenseLayer L1(2, 4, random);
+    DenseLayer L1(2, 8, random);
     ReluLayer L2;
-    DenseLayer L3(4, 4, random);
+    DenseLayer L3(8, 8, random);
     TanhLayer L4;
-    DenseLayer L5(4, 2, random);
+    DenseLayer L5(8, 2, random);
     SoftmaxLayer L6;
     LossFunction loss_function = CrossEntropy();
 
@@ -38,6 +38,6 @@ int main () {
     input(0, 2) = 1; input(1, 2) = 0; output(0, 2) = 0; output(1, 2) = 1;
     input(0, 3) = 0; input(1, 3) = 0; output(0, 3) = 1; output(1, 3) = 0;
 
-    network.train(input, output, 10000, 0.1);
+    network.train(input, output, 100, 0.1);
     std::cout << network.predict(input) << std::endl;
 }

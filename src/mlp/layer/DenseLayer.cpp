@@ -31,7 +31,7 @@ DenseLayer::DenseLayer (size_t input_size, size_t output_size, const DenseLayer:
 DenseLayer::Matrix DenseLayer::forward (const DenseLayer::Matrix& input_) {
     this->input = input_;
     Matrix result = ub::prod(this->weights, input);
-    for (size_t i = 0; i < result.size1(); ++i) {
+    for (size_t i = 0; i < result.size2(); ++i) {
         ub::column(result, i) += ub::column(this->biases, 0);
     }
     return result;

@@ -5,6 +5,7 @@
 #include <numeric>
 #include <boost/numeric/ublas/matrix_proxy.hpp>
 #include <boost/assign/std/vector.hpp>
+#include <boost/numeric/ublas/io.hpp>
 #include "SoftmaxLayer.h"
 
 namespace ub = boost::numeric::ublas;
@@ -18,7 +19,9 @@ SoftmaxLayer::Matrix SoftmaxLayer::forward (const SoftmaxLayer::Matrix& input_) 
     this->output = exps;
     return this->output;
 }
+
 SoftmaxLayer::Matrix SoftmaxLayer::backward (const SoftmaxLayer::Matrix& gradient, double) {
+    // SUS
     const auto n = this->output.size1();
     const auto m = this->output.size2();
     Matrix result{n, m};

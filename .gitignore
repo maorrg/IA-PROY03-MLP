@@ -7,3 +7,4 @@ src/data/.DS_Store
 **/cmake-*
 **/build
 src/__pycache__
+venv
