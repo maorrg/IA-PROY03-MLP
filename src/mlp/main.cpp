@@ -10,20 +10,27 @@
 #include "layer/activation/SigmoidLayer.h"
 #include "loss/MSE.h"
 #include "loss/CrossEntropy.h"
+#include <random>
 
 int main () {
     using namespace boost::numeric::ublas;
 //    if (!freopen("../out.txt", "w", stdout)) std::abort();
+//    static auto random_device = std::random_device();
+    static auto random_engine = std::default_random_engine{42};
+    static auto dist = std::uniform_real_distribution<double>(-0.5, 0.5);
+    const auto random = [&]() { return dist(random_engine); };
 
-    DenseLayer L1(2, 4);
-    TanhLayer L2;
-    DenseLayer L3(4, 4);
+
+    DenseLayer L1(2, 4, random);
+    ReluLayer L2;
+    DenseLayer L3(4, 4, random);
     TanhLayer L4;
-    DenseLayer L5(4, 2);
-    SigmoidLayer L6;
-    LossFunction loss_function = MSE();
+    DenseLayer L5(4, 2, random);
+    SoftmaxLayer L6;
+    LossFunction loss_function = CrossEntropy();
 
     Network network({ &L1, &L2, &L3, &L4, &L5, &L6 }, loss_function);
+    
     DenseLayer::Matrix input{2, 4};
     DenseLayer::Matrix output{2, 4};
     input(0, 0) = 1; input(1, 0) = 1; output(0, 0) = 1; output(1, 0) = 0;

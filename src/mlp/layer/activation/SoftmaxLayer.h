@@ -2,8 +2,8 @@
 // Created by Esteban on 6/4/2022.
 //
 
-#ifndef UNTITLED21_SOFTMAXLAYER_H
-#define UNTITLED21_SOFTMAXLAYER_H
+#ifndef UNTITLED21_SOFTMAX_LAYER_H
+#define UNTITLED21_SOFTMAX_LAYER_H
 
 #include "../Layer.h"
 
@@ -20,4 +20,4 @@ private:
 };
 
 
-#endif //UNTITLED21_SOFTMAXLAYER_H
+#endif //UNTITLED21_SOFTMAX_LAYER_H

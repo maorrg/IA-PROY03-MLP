@@ -11,8 +11,7 @@ namespace ub = boost::numeric::ublas;
 CrossEntropy::CrossEntropy () : LossFunction(
     CrossEntropy::cross_entropy_loss, CrossEntropy::cross_entropy_derivative) {}
 
-
-    double CrossEntropy::cross_entropy_loss (const LossFunction::Matrix& output, const LossFunction::Matrix& target) {
+double CrossEntropy::cross_entropy_loss (const LossFunction::Matrix& output, const LossFunction::Matrix& target) {
     double result = 0;
     const auto log_out = utils::foreach(output, [] (double x) { return std::log(1e-15 + x); });
     const auto comp_log_out = utils::foreach(output, [] (double x) { return std::log(1.0 - (1e-15 + x)); });
