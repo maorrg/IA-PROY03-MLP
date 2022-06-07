@@ -14,8 +14,8 @@ public:
 public:
     TanhLayer ();
 private:
-    static Matrix tanh(const Matrix& input_);
-    static Matrix tanh_derivative(const Matrix& input_);
+    static Matrix tanh (const Matrix& input_);
+    static Matrix tanh_derivative (const Matrix& input_);
 };
 
 

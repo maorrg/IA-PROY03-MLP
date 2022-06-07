@@ -12,8 +12,8 @@ public:
     using Matrix = boost::numeric::ublas::matrix<double>;
 
 public:
-    Matrix forward(const Matrix& input_) override;
-    Matrix backward(const Matrix& gradient, double learning_rate) override;
+    Matrix forward (const Matrix& input_) override;
+    Matrix backward (const Matrix& gradient, double learning_rate) override;
 
 private:
     Matrix output;

@@ -1,6 +1,4 @@
 #include "DenseLayer.h"
-#include "../utils/Utilities.h"
-#include <boost/numeric/ublas/tensor.hpp>
 #include <boost/numeric/ublas/operation.hpp>
 #include <algorithm>
 #include <random>
@@ -42,8 +40,7 @@ DenseLayer::Matrix DenseLayer::backward (const DenseLayer::Matrix& gradient, dou
 
     Matrix next_gradient = ub::prod(trans(this->weights), gradient);
     Matrix weights_gradient = ub::prod(gradient, trans(this->input)) / (double) m;
-//    Matrix bias_gradient = sum_of_cols(gradient) / m;
-    Matrix bias_gradient = ub::prod(gradient, utils::ones(m, 1)) / (double) m;
+    Matrix bias_gradient = ub::prod(gradient, ub::scalar_matrix(m, 1, 1.0)) / (double) m;
 
     this->weights -= weights_gradient * learning_rate;
     this->biases -= bias_gradient * learning_rate;

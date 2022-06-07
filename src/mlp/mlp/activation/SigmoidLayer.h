@@ -16,10 +16,9 @@ public:
 public:
     SigmoidLayer ();
 private:
-    static Matrix sigmoid(const Matrix& input_);
-    static Matrix sigmoid_derivative(const Matrix& input_);
+    static Matrix sigmoid (const Matrix& input_);
+    static Matrix sigmoid_derivative (const Matrix& input_);
 };
-
 
 
 #endif //UNTITLED21_SIGMOIDLAYER_H

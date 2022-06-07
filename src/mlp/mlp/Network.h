@@ -8,24 +8,26 @@
 #include <boost/numeric/ublas/io.hpp>
 #include <utility>
 
-#include "layer/Layer.h"
-#include "loss/LossFunction.h"
+#include "Layer.h"
+#include "loss/LossLayer.h"
 
 class Network {
 public:
     using Matrix = boost::numeric::ublas::matrix<double>;
 
 public:
-    explicit Network(std::vector<Layer*> layers_, LossFunction lossFunction_);
+    explicit Network(std::vector<Layer*> hidden_layers_, LossLayer* loss_layer_);
 
     Network& train(const Matrix& input, const Matrix& target, size_t epochs, double learning_rate);
 
-    Matrix predict(const Matrix& input);
+    Matrix forward(const Matrix& input);
+
+    void backward(const Matrix& real_value, double learning_rate);
 
 private:
     // non owning
-    std::vector<Layer*> layers;
-    LossFunction lossFunction;
+    std::vector<Layer*> hidden_layers;
+    LossLayer* loss_layer;
 };
 
 #endif  // UNTITLED21_NETWORK_H

@@ -12,11 +12,11 @@ public:
     using Matrix = boost::numeric::ublas::matrix<double>;
 
 public:
-    Layer() = default;
-    virtual ~Layer() = default;
+    Layer () = default;
+    virtual ~Layer () = default;
 
-    virtual Matrix forward(const Matrix& input) = 0;
-    virtual Matrix backward(const Matrix& gradient, double learning_rate) = 0;
+    virtual Matrix forward (const Matrix& input) = 0;
+    virtual Matrix backward (const Matrix& gradient, double learning_rate) = 0;
 };
 
 

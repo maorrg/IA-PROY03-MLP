@@ -3,7 +3,17 @@ project(untitled21)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(untitled21 main.cpp layer/Layer.h layer/activation/ActivationLayer.cpp layer/activation/ActivationLayer.h layer/DenseLayer.cpp layer/DenseLayer.h Network.cpp Network.h layer/activation/TanhLayer.h layer/activation/SoftmaxLayer.cpp layer/activation/SoftmaxLayer.h utils/Utilities.h layer/activation/TanhLayer.cpp loss/LossFunction.cpp loss/LossFunction.h layer/activation/SigmoidLayer.cpp layer/activation/SigmoidLayer.h layer/activation/ReluLayer.cpp layer/activation/ReluLayer.h utils/Utilities.cpp loss/MSE.cpp loss/MSE.h loss/CrossEntropy.cpp loss/CrossEntropy.h)
+add_executable(untitled21
+        main.cpp
+        mlp/Network.cpp
+        mlp/activation/ActivationLayer.cpp
+        mlp/activation/SoftmaxLayer.cpp
+        mlp/activation/TanhLayer.cpp
+        mlp/activation/SigmoidLayer.cpp
+        mlp/activation/ReluLayer.cpp
+        mlp/loss/MSELoss.cpp
+        mlp/loss/SoftmaxLoss.cpp
+        mlp/net/DenseLayer.cpp)
 
 target_compile_options(untitled21 PRIVATE
         $<$<CXX_COMPILER_ID:MSVC>: /W4 /WX>
