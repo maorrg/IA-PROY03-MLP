@@ -21,7 +21,7 @@ public:
 
     Matrix backward (const Matrix& gradient, double learning_rate) override;
 
-private:
+protected:
     Matrix weights;
     Matrix biases;
     Matrix input;

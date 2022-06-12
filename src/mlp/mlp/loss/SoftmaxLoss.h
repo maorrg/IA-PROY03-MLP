@@ -21,7 +21,7 @@ public:
     [[nodiscard]]
     double loss (const Matrix& real_value_) const override;
 
-private:
+protected:
     Matrix output;
     double epsilon;
 };

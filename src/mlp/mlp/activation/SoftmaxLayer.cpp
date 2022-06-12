@@ -10,6 +10,14 @@
 
 namespace ub = boost::numeric::ublas;
 
+template<class OP, class E>
+BOOST_UBLAS_INLINE
+typename ub::matrix_unary1_traits<E, OP>::result_type
+apply_op (const ub::matrix_expression<E> &e) {
+    typedef typename ub::matrix_unary1_traits<E, OP>::expression_type expression_type;
+    return expression_type (e ());
+}
+
 SoftmaxLayer::Matrix SoftmaxLayer::forward (const SoftmaxLayer::Matrix& input_) {
     Matrix exps = input_;
     std::transform(exps.data().begin(), exps.data().end(), exps.data().begin(), [] (double x) { return std::exp(x); });

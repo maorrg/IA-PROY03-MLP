@@ -1,8 +1,8 @@
-#include "TanhLayer.h"
+#include "Tanh.h"
 
-TanhLayer::TanhLayer () : ActivationLayer(TanhLayer::tanh, TanhLayer::tanh_derivative) {}
+Tanh::Tanh () : ActivationLayer(Tanh::tanh, Tanh::tanh_derivative) {}
 
-TanhLayer::Matrix TanhLayer::tanh (const TanhLayer::Matrix& input_) {
+Tanh::Matrix Tanh::tanh (const Tanh::Matrix& input_) {
     Matrix output = input_;
     std::transform(output.data().begin(), output.data().end(), output.data().begin(), [](double x) {
         return std::tanh(x);
@@ -10,7 +10,7 @@ TanhLayer::Matrix TanhLayer::tanh (const TanhLayer::Matrix& input_) {
     return output;
 }
 
-TanhLayer::Matrix TanhLayer::tanh_derivative (const TanhLayer::Matrix& input_) {
+Tanh::Matrix Tanh::tanh_derivative (const Tanh::Matrix& input_) {
     Matrix output = input_;
     std::transform(output.data().begin(), output.data().end(), output.data().begin(), [](double x) {
         return 1 - std::pow(std::tanh(x), 2);

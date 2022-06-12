@@ -2,21 +2,21 @@
 // Created by Esteban on 6/5/2022.
 //
 
-#ifndef UNTITLED21_RELULAYER_H
-#define UNTITLED21_RELULAYER_H
+#ifndef UNTITLED21_RELU_H
+#define UNTITLED21_RELU_H
 
 #include "ActivationLayer.h"
 
-class ReluLayer : public ActivationLayer {
+class ReLU : public ActivationLayer {
 public:
     using Matrix = boost::numeric::ublas::matrix<double>;
     using Function = std::function<Matrix (const Matrix&)>;
 public:
-    ReluLayer ();
+    ReLU ();
 private:
     static Matrix relu (const Matrix& input_);
     static Matrix relu_derivative (const Matrix& input_);
 };
 
 
-#endif //UNTITLED21_RELULAYER_H
+#endif //UNTITLED21_RELU_H
