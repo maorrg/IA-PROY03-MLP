@@ -18,9 +18,9 @@ add_executable(untitled21
 target_include_directories(untitled21 PUBLIC
         ${Boost_INCLUDE_DIRS})
 
-target_compile_options(untitled21 PRIVATE
-        $<$<CXX_COMPILER_ID:MSVC>: /W4 /WX>
-        $<$<NOT:$<CXX_COMPILER_ID:MSVC>>: -Wall -Wextra -Wpedantic -Werror>)
+#target_compile_options(untitled21 PRIVATE
+#        $<$<CXX_COMPILER_ID:MSVC>: /W4 /WX>
+#        $<$<NOT:$<CXX_COMPILER_ID:MSVC>>: -Wall -Wextra -Wpedantic -Werror>)
 
 message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
 message(STATUS "Compiler: ${CXX_COMPILER_ID}")
