@@ -6,7 +6,6 @@
 #define UNTITLED21_ACTIVATIONS_H
 
 #include "ReLU.h"
-#include "SoftmaxLayer.h"
 #include "SigmoidLayer.h"
 #include "Tanh.h"
 
