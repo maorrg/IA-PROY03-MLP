@@ -32,7 +32,7 @@ double SoftmaxLoss::loss (const SoftmaxLoss::Matrix& real_value_) const {
         log_out.data().begin(), log_out.data().end(), log_out.data().begin(),
         [this] (double x) { return std::log(x + epsilon); });
     const auto ce = -ub::element_prod(real_value_, log_out);
-    const auto sum_cols = ub::prod(ub::scalar_vector(this->output.size1(), 1.0), ce);
+    const ub::vector<double> sum_cols = ub::prod(ub::scalar_vector(this->output.size1(), 1.0), ce);
     return ub::sum(sum_cols) / static_cast<double>(this->output.size2());
 }
 
