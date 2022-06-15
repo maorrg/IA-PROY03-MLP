@@ -5,8 +5,8 @@
 #ifndef UNTITLED21_ACTIVATIONS_H
 #define UNTITLED21_ACTIVATIONS_H
 
-#include "ReLU.h"
-#include "SigmoidLayer.h"
-#include "Tanh.h"
+#include <mlp/activation/ReLU.h>
+#include <mlp/activation/SigmoidLayer.h>
+#include <mlp/activation/Tanh.h>
 
 #endif //UNTITLED21_ACTIVATIONS_H

@@ -5,11 +5,11 @@
 #ifndef UNTITLED21_LOSSLAYER_H
 #define UNTITLED21_LOSSLAYER_H
 
-#include "../Layer.h"
+#include <mlp/Layer.h>
 
 class LossLayer : public Layer {
 public:
-    using Matrix = boost::numeric::ublas::matrix<double>;
+    using Matrix = Layer::Matrix;
 
 public:
     [[nodiscard]]

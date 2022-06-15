@@ -3,19 +3,15 @@
 //
 
 #include "SoftmaxLoss.h"
-#include <boost/numeric/ublas/matrix_proxy.hpp>
 
-namespace ub = boost::numeric::ublas;
+using namespace mlp::math;
 
 
-SoftmaxLoss::SoftmaxLoss (double epsilon)
-    : LossLayer(), epsilon(epsilon) {}
-
+MLP_BOOST_MATH_MAKE_FUNCTOR(exp, [] (double x) { return std::exp(x); });
 SoftmaxLoss::Matrix SoftmaxLoss::forward (const Matrix& input_) {
-    Matrix exps = input_;
-    std::transform(exps.data().begin(), exps.data().end(), exps.data().begin(), [] (double x) { return std::exp(x); });
+    Matrix exps = mlp::math::exp(input_);
     for (size_t i = 0; i < exps.size2(); ++i) {
-        ub::column(exps, i) /= ub::sum(ub::column(exps, i));
+        mlp::math::col(exps, i) /= mlp::math::sum(mlp::math::col(exps, i));
     }
     this->output = exps;
     return this->output;
@@ -26,13 +22,13 @@ SoftmaxLoss::Matrix SoftmaxLoss::backward (const SoftmaxLoss::Matrix& real_value
     return this->output - real_value_;
 }
 
+MLP_BOOST_MATH_MAKE_FUNCTOR(log_epsilon, [] (double x) { return std::log(x + 1e-8); });
 double SoftmaxLoss::loss (const SoftmaxLoss::Matrix& real_value_) const {
-    Matrix log_out = this->output;
-    std::transform(
-        log_out.data().begin(), log_out.data().end(), log_out.data().begin(),
-        [this] (double x) { return std::log(x + epsilon); });
-    const auto ce = -ub::element_prod(real_value_, log_out);
-    const ub::vector<double> sum_cols = ub::prod(ub::scalar_vector(this->output.size1(), 1.0), ce);
-    return ub::sum(sum_cols) / static_cast<double>(this->output.size2());
+    const auto logs = mlp::math::log_epsilon(this->output);
+    const auto ce = - (real_value_ * logs);
+    const auto ones = mlp::math::full(this->output.size1(), 1.0);
+    const auto sum_cols = ones % ce;
+    return mlp::math::sum(sum_cols) / static_cast<double>(this->output.size2());
 }
+
 

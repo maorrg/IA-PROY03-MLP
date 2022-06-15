@@ -5,11 +5,11 @@
 #ifndef UNTITLED21_ACTIVATIONLAYER_H
 #define UNTITLED21_ACTIVATIONLAYER_H
 
-#include "../Layer.h"
+#include <mlp/Layer.h>
 
 class ActivationLayer : public Layer {
 public:
-    using Matrix = boost::numeric::ublas::matrix<double>;
+    using Matrix = Layer::Matrix;
     using Function = std::function<Matrix (const Matrix&)>;
 public:
     ActivationLayer (Function function_, Function derivative_);

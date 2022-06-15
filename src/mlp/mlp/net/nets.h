@@ -5,6 +5,6 @@
 #ifndef UNTITLED21_NETS_H
 #define UNTITLED21_NETS_H
 
-#include "DenseLayer.h"
+#include <mlp/net/DenseLayer.h>
 
 #endif //UNTITLED21_NETS_H

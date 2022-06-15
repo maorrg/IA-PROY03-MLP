@@ -5,11 +5,11 @@
 #ifndef UNTITLED21_TANH_H
 #define UNTITLED21_TANH_H
 
-#include "ActivationLayer.h"
+#include <mlp/activation/ActivationLayer.h>
 
 class Tanh : public ActivationLayer {
 public:
-    using Matrix = boost::numeric::ublas::matrix<double>;
+    using Matrix = ActivationLayer::Matrix;
     using Function = std::function<Matrix (const Matrix&)>;
 public:
     Tanh ();

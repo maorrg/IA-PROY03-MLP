@@ -5,11 +5,11 @@
 #ifndef UNTITLED21_LAYER_H
 #define UNTITLED21_LAYER_H
 
-#include <boost/numeric/ublas/matrix.hpp>
+#include <mlp/math/boost_math.h>
 
 class Layer {
 public:
-    using Matrix = boost::numeric::ublas::matrix<double>;
+    using Matrix = mlp::math::Matrix;
 
 public:
     Layer () = default;

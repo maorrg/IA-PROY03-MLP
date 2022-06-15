@@ -2,33 +2,76 @@
 #include "mlp/net/nets.h"
 #include "mlp/activation/activations.h"
 #include "mlp/loss/losses.h"
-#include <iostream>
+#include <boost/numeric/ublas/io.hpp>
+#include <boost/numeric/ublas/assignment.hpp>
 #include <random>
 
+class MyNetwork : public Network<MyNetwork> {
+public:
+    using Matrix = mlp::math::Matrix;
+
+    MyNetwork (size_t input_size, size_t output_size, const NetworkSettings& settings)
+        : Network(settings),
+          dense1(input_size, 8, settings.random),
+          dense2(8, 8, settings.random),
+          dense3(8, output_size, settings.random) {
+
+    }
+
+    Matrix forward (const Matrix& input) override {
+        Matrix x = dense1.forward(input);
+        x = relu1.forward(x);
+        x = dense2.forward(x);
+        x = relu2.forward(x);
+        x = dense3.forward(x);
+        x = softmax.forward(x);
+        return x;
+    }
+
+    void backward (const Matrix& real_value) override {
+        loss = softmax.loss(real_value);
+
+        Matrix x = softmax.backward(real_value, settings.learning_rate);
+        x = dense3.backward(x, settings.learning_rate);
+        x = relu2.backward(x, settings.learning_rate);
+        x = dense2.backward(x, settings.learning_rate);
+        x = relu1.backward(x, settings.learning_rate);
+        dense1.backward(x, settings.learning_rate);
+    }
+
+protected:
+    void on_epoch_callback (size_t epoch) override {
+        std::cout << "Epoch: " << epoch << ' ' << "Loss: " << loss << std::endl;
+    }
+
+private:
+    DenseLayer dense1;
+    ReLU relu1;
+    DenseLayer dense2;
+    ReLU relu2;
+    DenseLayer dense3;
+    SoftmaxLoss softmax;
+    double loss = NAN;
+};
+
 int main () {
-    namespace ub = boost::numeric::ublas;
-    using Matrix = ub::matrix<double>;
-    static auto random_source = std::random_device{};
-    static auto random_engine = std::default_random_engine{random_source()};
-    static auto dist = std::uniform_real_distribution<double>(-0.5, 0.5);
-    const auto random = [&]() { return dist(random_engine); };
+    using Matrix = mlp::math::Matrix;
 
-    auto L1 = DenseLayer(2, 8, random);
-    auto A1 = ReLU();
-    auto L2 = DenseLayer(8, 8, random);
-    auto A2 = ReLU();
-    auto L3 = DenseLayer(8, 2, random);
-    auto loss = SoftmaxLoss();
+    auto input = Matrix{ 2, 4 };
+    auto output = Matrix{ 2, 4 };
 
-    Network network({ &L1, &A1, &L2, &A2, &L3 }, &loss);
+    input <<=
+        1, 0, 1, 0,
+        1, 1, 0, 0;
 
-    auto input = Matrix{2, 4};
-    auto output = Matrix{2, 4};
-    input(0, 0) = 1; input(1, 0) = 1; output(0, 0) = 1; output(1, 0) = 0;
-    input(0, 1) = 0; input(1, 1) = 1; output(0, 1) = 0; output(1, 1) = 1;
-    input(0, 2) = 1; input(1, 2) = 0; output(0, 2) = 0; output(1, 2) = 1;
-    input(0, 3) = 0; input(1, 3) = 0; output(0, 3) = 1; output(1, 3) = 0;
+    output <<=
+        1, 0, 0, 1,
+        0, 1, 1, 0;
 
-    network.train(input, output, 1000, 0.1);
-    std::cout << network.forward(input) << std::endl;
+
+    MyNetwork network(2, 2, { 1000, 4, 0.1 });
+    network.train(input, output);
+    std::cout << network.forward(input) << '\n';
+
+    return 0;
 }

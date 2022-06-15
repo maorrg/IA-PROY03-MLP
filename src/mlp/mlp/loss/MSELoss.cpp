@@ -4,10 +4,10 @@
 
 #include "MSELoss.h"
 
-namespace ub = boost::numeric::ublas;
+using namespace mlp::math;
 
 MSELoss::Matrix MSELoss::forward (const MSELoss::Matrix& input_) {
-    this->output = input_ * 1.0;
+    this->output = input_;
     return this->output;
 }
 
@@ -17,7 +17,8 @@ MSELoss::Matrix MSELoss::backward (const MSELoss::Matrix& real_value_, double) {
 
 double MSELoss::loss (const MSELoss::Matrix& real_value_) const {
     const auto diff = this->output - real_value_;
-    const auto mse = ub::element_prod(diff, diff);
-    const auto sum_cols = ub::prod(ub::scalar_vector(output.size1(), 1.0), mse);
-    return ub::sum(sum_cols) / static_cast<double>(output.size2());
+    const auto mse = diff * diff;
+    const auto ones = mlp::math::full(mse.size1(), 1.0);
+    const auto sum_cols = ones % mse;
+    return mlp::math::sum(sum_cols) / static_cast<double>(output.size2());
 }

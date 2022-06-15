@@ -9,10 +9,10 @@
 
 class SoftmaxLoss : public LossLayer {
 public:
-    using Matrix = boost::numeric::ublas::matrix<double>;
+    using Matrix = LossLayer::Matrix;
 
 public:
-    explicit SoftmaxLoss (double epsilon = 1e-8);
+    SoftmaxLoss () = default;
 
     Matrix forward (const Matrix& input_) override;
 
@@ -23,7 +23,6 @@ public:
 
 protected:
     Matrix output;
-    double epsilon;
 };
 
 
