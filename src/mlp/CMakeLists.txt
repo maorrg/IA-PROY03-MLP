@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.20)
 project(untitled21)
 
 set(CMAKE_CXX_STANDARD 17)
+
 find_package(Boost REQUIRED)
 
 add_executable(untitled21
@@ -16,16 +17,13 @@ add_executable(untitled21
 
 target_include_directories(untitled21 PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}
-        ${Boost_INCLUDE_DIRS})
+        ${Boost_INCLUDE_DIRS}
+        )
 
 target_compile_options(untitled21 PRIVATE
         $<$<CXX_COMPILER_ID:MSVC>: /W4>
         $<$<NOT:$<CXX_COMPILER_ID:MSVC>>: -Wall -Wextra -Wpedantic>
-#        -fsanitize=address,undefined
         )
-
-#target_link_options(untitled21 PRIVATE
-#        $<$<NOT:$<CXX_COMPILER_ID:MSVC>>: -fsanitize=address,undefined>)
 
 message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
 message(STATUS "Compiler: ${CMAKE_CXX_COMPILER_ID}")
