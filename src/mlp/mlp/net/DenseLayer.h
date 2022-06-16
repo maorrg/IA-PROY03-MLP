@@ -5,7 +5,7 @@
 #ifndef UNTITLED21_DENSELAYER_H
 #define UNTITLED21_DENSELAYER_H
 
-#include <mlp/Layer.h>
+#include <mlp/net/Layer.h>
 
 class DenseLayer : public Layer {
 public:

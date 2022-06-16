@@ -5,7 +5,7 @@
 #ifndef UNTITLED21_RELU_H
 #define UNTITLED21_RELU_H
 
-#include <mlp/Layer.h>
+#include <mlp/net/Layer.h>
 
 class ReLU : public Layer {
 public:

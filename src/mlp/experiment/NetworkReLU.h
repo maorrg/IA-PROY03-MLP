@@ -5,12 +5,9 @@
 #ifndef UNTITLED21_NETWORKRELU_H
 #define UNTITLED21_NETWORKRELU_H
 
-#include <mlp/Network.h>
-#include <mlp/net/connected.h>
-#include <mlp/net/activations.h>
-#include <mlp/net/losses.h>
+#include <mlp/net/Network.h>
 
-class NetworkReLU : public Network<NetworkReLU> {
+class NetworkReLU : public Network {
 public:
     using Matrix = mlp::math::Matrix;
 

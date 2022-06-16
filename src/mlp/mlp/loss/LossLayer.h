@@ -5,7 +5,7 @@
 #ifndef UNTITLED21_LOSSLAYER_H
 #define UNTITLED21_LOSSLAYER_H
 
-#include <mlp/Layer.h>
+#include <mlp/net/Layer.h>
 
 class LossLayer : public Layer {
 public:

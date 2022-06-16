@@ -6,7 +6,7 @@
 #define UNTITLED21_SIGMOID_H
 
 
-#include <mlp/Layer.h>
+#include <mlp/net/Layer.h>
 
 class Sigmoid : public Layer {
 public:

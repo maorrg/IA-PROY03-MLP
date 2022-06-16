@@ -5,7 +5,7 @@
 #ifndef UNTITLED21_TANH_H
 #define UNTITLED21_TANH_H
 
-#include <mlp/Layer.h>
+#include <mlp/net/Layer.h>
 
 class Tanh : public Layer {
 public:
