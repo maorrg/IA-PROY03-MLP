@@ -5,21 +5,13 @@
 #ifndef UNTITLED21_NETWORK_H
 #define UNTITLED21_NETWORK_H
 
-#include <mlp/math/boost_math.h>
+#include "mlp/math/mlp_math.h"
 #include <random>
 
-inline auto default_random () {
-    static auto random_source = std::random_device{};
-    static auto random_engine = std::default_random_engine{ random_source() };
-    static auto dist = std::uniform_real_distribution<double>(-0.5, 0.5);
-    return dist(random_engine);
-};
 
 struct NetworkSettings {
     size_t epochs = 100;
-    size_t batch_size = 64;
     double learning_rate = 0.01;
-    double (*random) () = default_random;
 };
 
 template<class NetworkType>

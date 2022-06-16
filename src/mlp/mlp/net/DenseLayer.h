@@ -10,12 +10,9 @@
 class DenseLayer : public Layer {
 public:
     using Matrix = Layer::Matrix;
-    using Random = std::function<double (void)>;
 
 public:
     DenseLayer (size_t input_size, size_t output_size);
-
-    DenseLayer (size_t input_size, size_t output_size, const Random& random);
 
     Matrix forward (const Matrix& input_) override;
 

@@ -6,7 +6,7 @@
 #define UNTITLED21_ACTIVATIONS_H
 
 #include <mlp/activation/ReLU.h>
-#include <mlp/activation/SigmoidLayer.h>
+#include <mlp/activation/Sigmoid.h>
 #include <mlp/activation/Tanh.h>
 
 #endif //UNTITLED21_ACTIVATIONS_H

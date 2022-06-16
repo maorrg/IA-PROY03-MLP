@@ -10,7 +10,7 @@
 class ActivationLayer : public Layer {
 public:
     using Matrix = Layer::Matrix;
-    using Function = std::function<Matrix (const Matrix&)>;
+    using Function = Matrix (*) (const Matrix&);
 public:
     ActivationLayer (Function function_, Function derivative_);
     Matrix forward (const Matrix& input_) override;

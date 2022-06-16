@@ -5,7 +5,7 @@
 #ifndef UNTITLED21_LAYER_H
 #define UNTITLED21_LAYER_H
 
-#include <mlp/math/boost_math.h>
+#include <mlp/math/mlp_math.h>
 
 class Layer {
 public:

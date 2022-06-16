@@ -10,7 +10,6 @@
 class Tanh : public ActivationLayer {
 public:
     using Matrix = ActivationLayer::Matrix;
-    using Function = std::function<Matrix (const Matrix&)>;
 public:
     Tanh ();
 private:
