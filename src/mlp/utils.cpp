@@ -38,7 +38,7 @@ vector<vector<double>> read_eigenvectors()
 int main()
 {
     auto a = read_eigenvectors();
-    cout << "Size: " << a[0].size() << "\n";
-    cout << "First value: " << a[0][0] << "\n";
+    cout << "[TEST] Size of each vector: " << a[0].size() << "\n";
+    cout << "[TEST] First value: " << a[0][0] << "\n";
     return 0;
 }
