@@ -9,10 +9,11 @@
 
 class MSELoss : public LossLayer {
 public:
-    using Matrix = boost::numeric::ublas::matrix<double>;
+    using Matrix = LossLayer::Matrix;
 
 public:
     MSELoss () = default;
+
     Matrix forward (const Matrix& input_) override;
 
     Matrix backward (const Matrix& real_value_, double learning_rate) override;

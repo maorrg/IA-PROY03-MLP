@@ -2,15 +2,21 @@
 // Created by Esteban on 6/4/2022.
 //
 
-#include "ActivationLayer.h"
+#include <mlp/activation/ActivationLayer.h>
+
+using namespace mlp::math;
 
 ActivationLayer::ActivationLayer (ActivationLayer::Function function_, ActivationLayer::Function derivative_) :
-    function(std::move(function_)), derivative(std::move(derivative_)) {}
+    function(function_), derivative(derivative_) {}
 
 ActivationLayer::Matrix ActivationLayer::forward (const ActivationLayer::Matrix& input_) {
     this->input = input_;
-    return this->function(input_);
+    auto output = this->function(input_);
+#if defined(MLP_USE_ARRAYFIRE_BACKEND)
+    mlp::math::eval(output);
+#endif
+    return output;
 }
 ActivationLayer::Matrix ActivationLayer::backward (const ActivationLayer::Matrix& gradient, double) {
-    return boost::numeric::ublas::element_prod(this->derivative(this->input), gradient);
+    return this->derivative(this->input) * gradient;
 }

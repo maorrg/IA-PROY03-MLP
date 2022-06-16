@@ -5,17 +5,14 @@
 #ifndef UNTITLED21_DENSELAYER_H
 #define UNTITLED21_DENSELAYER_H
 
-#include "../Layer.h"
+#include <mlp/Layer.h>
 
 class DenseLayer : public Layer {
 public:
-    using Matrix = boost::numeric::ublas::matrix<double>;
-    using Random = std::function<double (void)>;
+    using Matrix = Layer::Matrix;
 
 public:
     DenseLayer (size_t input_size, size_t output_size);
-
-    DenseLayer (size_t input_size, size_t output_size, const Random& random);
 
     Matrix forward (const Matrix& input_) override;
 

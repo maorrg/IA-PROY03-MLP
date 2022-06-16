@@ -3,9 +3,6 @@ import numpy as np
 from PIL import Image
 import os
 import pywt
-from natsort import natsorted
-from sklearn.neighbors import NearestNeighbors
-import  matplotlib.pyplot as plt
 
 def get_vector_from_data(imagen, iterations):
 
@@ -20,7 +17,7 @@ def get_data_wavelet(path_dir, iterations, width=100, height=100):
     image_names = []
 
     for train_img in os.listdir(path_dir):
-        image_path = f"{path_dir}\{train_img}"
+        image_path = f"{path_dir}\\{train_img}"
         img = Image.open(image_path)
         newsize = (width, height)
         img = img.resize(newsize)
