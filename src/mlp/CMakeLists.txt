@@ -3,15 +3,18 @@ project(untitled21)
 set(CMAKE_CXX_STANDARD 17)
 
 set(PROJECT_SOURCES
-        mlp/math/mlp_math.h
-        main.cpp
-        mlp/activation/ActivationLayer.cpp
-        mlp/activation/Tanh.cpp
-        mlp/activation/Sigmoid.cpp
-        mlp/activation/ReLU.cpp
-        mlp/loss/MSELoss.cpp
+        mlp/math/arrayfire_backend.cpp
+        mlp/math/boost_backend.cpp
+        mlp/net/DenseLayer.cpp
         mlp/loss/SoftmaxLoss.cpp
-        mlp/net/DenseLayer.cpp)
+        mlp/loss/MSELoss.cpp
+        mlp/activation/ReLU.cpp
+        mlp/activation/Sigmoid.cpp
+        mlp/activation/Tanh.cpp
+        mlp/activation/ActivationLayer.cpp
+        experiment/NetworkReLU.cpp
+        main.cpp
+        )
 
 add_executable(untitled21 ${PROJECT_SOURCES})
 target_include_directories(untitled21 PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

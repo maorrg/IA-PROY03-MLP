@@ -12,19 +12,11 @@ namespace mlp::math {
     using Matrix = af::array;
     using namespace af;
 
-    static af::randomEngine engine = af::getDefaultRandomEngine();
-
-    inline void set_seed(unsigned long long seed) {
-        engine.setSeed(seed);
-    }
+    void set_seed(unsigned long long seed);
+    Matrix zeros(size_t n, size_t m);
 }
 
-inline std::ostream& operator<<(std::ostream& os, const mlp::math::Matrix & mat) {
-    const char* res = af::toString("", mat);
-    os << res;
-    af::freeHost(res);
-    return os;
-}
+std::ostream& operator<<(std::ostream& os, const mlp::math::Matrix & mat);
 
 #define MLP_MATH_MAKE_FUNCTOR(NAME, OP)
 

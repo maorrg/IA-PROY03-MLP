@@ -13,53 +13,30 @@
 namespace mlp::math {
     using namespace boost::numeric::ublas;
     using Matrix = matrix<double>;
+    using Vector = vector<double>;
 
     template<class E1, class E2>
     inline auto operator * (const matrix_expression<E1>& a, const matrix_expression<E2>& b) {
         return element_prod(a, b);
     }
 
-    template<class E1, class E2>
-    inline auto operator % (const matrix_expression<E1>& a, const matrix_expression<E2>& b) {
-        return prod(a, b);
-    }
+    Vector constant (size_t n, double value);
 
-    template<class E1, class E2>
-    inline auto operator % (const matrix_expression<E1>& a, const vector_expression<E2>& b) {
-        return prod(a, b);
-    }
+    Matrix constant (size_t n, size_t m, double value);
 
-    template<class E1, class E2>
-    inline auto operator % (const vector_expression<E1>& a, const vector_expression<E2>& b) {
-        return prod(a, b);
-    }
+    Matrix zeros (size_t n, size_t m);
 
-    template<class E1, class E2>
-    inline auto operator % (const vector_expression<E1>& a, const matrix_expression<E2>& b) {
-        return prod(a, b);
-    }
+    Matrix ones (size_t n, size_t m);
 
-    inline auto full (size_t n, double value) { return scalar_vector<double>(n, value); }
+    Matrix randu(size_t n, size_t m);
 
-    inline auto full (size_t m, size_t n, double value) { return scalar_matrix<double>(m, n, value); }
+    double random ();
 
-    static auto random_source = std::random_device{};
-    static auto random_engine = std::default_random_engine{ random_source() };
-    static auto dist = std::uniform_real_distribution<double>(0, 1);
+    void set_seed(unsigned seed);
 
-    inline auto random () {
-        return dist(random_engine);
-    };
+    void setDevice(int);
 
-    inline auto randu(size_t n, size_t m) {
-        Matrix mat{n, m};
-        std::generate(mat.data().begin(), mat.data().end(), random);
-        return mat;
-    }
-
-    inline auto set_seed(unsigned seed) {
-        random_engine = std::default_random_engine{ seed };
-    }
+    void info();
 };
 
 #define MLP_MATH_MAKE_FUNCTOR(NAME, OP) \
