@@ -1,7 +1,6 @@
 #include <mlp/activation/ReLU.h>
 #include <mlp/math/mlp_math.h>
 
-ReLU::ReLU () : ActivationLayer(ReLU::relu, ReLU::relu_derivative) {}
 
 #if defined(MLP_USE_BOOST_BACKEND)
 MLP_MATH_MAKE_FUNCTOR(relu, [] (double x) { return x > 0 ? x : 0; });
@@ -22,5 +21,16 @@ ReLU::Matrix ReLU::relu (const ReLU::Matrix& input_) {
 ReLU::Matrix ReLU::relu_derivative (const ReLU::Matrix& input_) {
     return (input_ > 0).as(f32);
 }
-
 #endif
+
+ReLU::Matrix ReLU::forward (const ReLU::Matrix& input_) {
+    this->input = input_;
+    auto output = (input_ > 0).as(f32) * input_;
+    mlp::math::eval(output);
+    return output;
+}
+ReLU::Matrix ReLU::backward (const ReLU::Matrix& gradient, double) {
+    auto output = ReLU::relu_derivative(this->input) * gradient;
+    mlp::math::eval(output);
+    return output;
+}

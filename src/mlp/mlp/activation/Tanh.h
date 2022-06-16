@@ -5,16 +5,20 @@
 #ifndef UNTITLED21_TANH_H
 #define UNTITLED21_TANH_H
 
-#include <mlp/activation/ActivationLayer.h>
+#include <mlp/Layer.h>
 
-class Tanh : public ActivationLayer {
+class Tanh : public Layer {
 public:
-    using Matrix = ActivationLayer::Matrix;
+    using Matrix = Layer::Matrix;
 public:
-    Tanh ();
+    Tanh () = default;
+    Matrix forward (const Matrix& input_) override;
+    Matrix backward (const Matrix& gradient, double learning_rate) override;
 private:
     static Matrix tanh (const Matrix& input_);
     static Matrix tanh_derivative (const Matrix& input_);
+
+    Matrix output;
 };
 
 

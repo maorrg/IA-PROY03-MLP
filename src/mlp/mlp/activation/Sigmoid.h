@@ -6,16 +6,20 @@
 #define UNTITLED21_SIGMOID_H
 
 
-#include <mlp/activation/ActivationLayer.h>
+#include <mlp/Layer.h>
 
-class Sigmoid : public ActivationLayer {
+class Sigmoid : public Layer {
 public:
-    using Matrix = ActivationLayer::Matrix;
+    using Matrix = Layer::Matrix;
 public:
-    Sigmoid ();
+    Sigmoid () = default;
+    Matrix forward (const Matrix& input_) override;
+    Matrix backward (const Matrix& gradient, double learning_rate) override;
 private:
     static Matrix sigmoid (const Matrix& input_);
     static Matrix sigmoid_derivative (const Matrix& input_);
+
+    Matrix output;
 };
 
 

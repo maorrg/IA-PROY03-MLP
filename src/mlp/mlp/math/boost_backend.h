@@ -20,24 +20,18 @@ namespace mlp::math {
         return element_prod(a, b);
     }
 
+    size_t size(const Matrix& m, size_t dim);
     Vector constant (size_t n, double value);
-
     Matrix constant (size_t n, size_t m, double value);
-
     Matrix zeros (size_t n, size_t m);
-
     Matrix ones (size_t n, size_t m);
-
     Matrix randu(size_t n, size_t m);
-
-    double random ();
-
-    void set_seed(unsigned seed);
-
+    void setSeed(unsigned seed);
+    void eval(...);
     void setDevice(int);
-
     void info();
 };
+
 
 #define MLP_MATH_MAKE_FUNCTOR(NAME, OP) \
 namespace functor { \

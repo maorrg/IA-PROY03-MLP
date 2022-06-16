@@ -6,9 +6,9 @@
 #define UNTITLED21_NETWORKRELU_H
 
 #include <mlp/Network.h>
-#include <mlp/net/nets.h>
-#include <mlp/activation/activations.h>
-#include <mlp/loss/losses.h>
+#include <mlp/net/connected.h>
+#include <mlp/net/activations.h>
+#include <mlp/net/losses.h>
 
 class NetworkReLU : public Network<NetworkReLU> {
 public:

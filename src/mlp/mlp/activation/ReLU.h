@@ -5,16 +5,20 @@
 #ifndef UNTITLED21_RELU_H
 #define UNTITLED21_RELU_H
 
-#include <mlp/activation/ActivationLayer.h>
+#include <mlp/Layer.h>
 
-class ReLU : public ActivationLayer {
+class ReLU : public Layer {
 public:
-    using Matrix = ActivationLayer::Matrix;
+    using Matrix = Layer::Matrix;
 public:
-    ReLU ();
+    ReLU () = default;
+    Matrix forward (const Matrix& input_) override;
+    Matrix backward (const Matrix& gradient, double learning_rate) override;
 private:
     static Matrix relu (const Matrix& input_);
     static Matrix relu_derivative (const Matrix& input_);
+
+    Matrix input;
 };
 
 
