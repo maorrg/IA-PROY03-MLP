@@ -8,13 +8,12 @@
 
 using namespace std;
 
-
-void read_eigenvectors()
+vector<vector<double>> read_eigenvectors()
 {
     string fname = "../data/output/imageProcessingOutput/eigenvectors.csv";
 
-    vector<vector<string> > content;
-    vector<string> row;
+    vector<vector<double>> data;
+    vector<double> row;
     string line, word;
 
     fstream file(fname, ios::in);
@@ -27,26 +26,19 @@ void read_eigenvectors()
             stringstream str(line);
 
             while (getline(str, word, ','))
-                row.push_back(word);
-            content.push_back(row);
+                row.push_back(stod(word));
+            data.push_back(row);
         }
     }
     else
         cout << "Could not open the file\n";
-
-    for (int i = 0; i < content.size(); i++)
-    {
-        for (int j = 0; j < content[i].size(); j++)
-        {
-            cout << content[i][j] << " ";
-        }
-        cout << "\n";
-    }
-
+    return data;
 }
 
-
-int main(){
-    read_eigenvectors();
+int main()
+{
+    auto a = read_eigenvectors();
+    cout << "Size: " << a[0].size() << "\n";
+    cout << "First value: " << a[0][0] << "\n";
     return 0;
 }
