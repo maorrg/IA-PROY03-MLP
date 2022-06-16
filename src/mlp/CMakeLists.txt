@@ -11,6 +11,7 @@ set(PROJECT_SOURCES
         mlp/activation/ReLU.cpp
         mlp/activation/Sigmoid.cpp
         mlp/activation/Tanh.cpp
+        mlp/net/Network.cpp
         experiment/NetworkReLU.cpp
         main.cpp
         )

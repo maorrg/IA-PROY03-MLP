@@ -8,7 +8,7 @@ int main () {
     mlp::math::info();
 
     auto [X, Y] = load_dataset("../../data/output/imageProcessingOutput/eigenvectors.csv");
-    NetworkReLU network(size(X, 0), size(Y, 0), {5000, 0.1});
+    auto network = NetworkReLU(size(X, 0), size(Y, 0), {5000, 0.1});
     network.train(X, Y);
 
     return 0;
