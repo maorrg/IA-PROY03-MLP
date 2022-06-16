@@ -25,7 +25,7 @@ ReLU::Matrix ReLU::relu_derivative (const ReLU::Matrix& input_) {
 
 ReLU::Matrix ReLU::forward (const ReLU::Matrix& input_) {
     this->input = input_;
-    auto output = (input_ > 0).as(f32) * input_;
+    auto output = ReLU::relu(input_);
     mlp::math::eval(output);
     return output;
 }

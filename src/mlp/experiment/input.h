@@ -43,15 +43,15 @@ load_dataset (const char* path) {
         }
         X_.push_back(std::move(xi));
     }
-    mlp::math::Matrix X(X_[0].size(), X_.size());
-    mlp::math::Matrix Y = mlp::math::zeros(10, Y_.size());
+    mlp::math::Matrix X((int) X_[0].size(), (int) X_.size());
+    mlp::math::Matrix Y = mlp::math::zeros(10, (int) Y_.size());
 
-    for (size_t i = 0; i < X_.size(); i++) {
-        for (size_t j = 0; j < X_[0].size(); j++) {
+    for (int i = 0; i < (int) X_.size(); i++) {
+        for (int j = 0; j < (int) X_[0].size(); j++) {
             X(j, i) = X_[i][j];
         }
     }
-    for (size_t i = 0; i < Y_.size(); i++) {
+    for (int i = 0; i < (int) Y_.size(); i++) {
         Y(Y_[i], i) = 1;
     }
     return std::make_pair(X, Y);

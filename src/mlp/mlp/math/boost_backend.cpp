@@ -29,9 +29,7 @@ void mlp::math::setDevice (int) {
 void mlp::math::info () {
     // no-op
 }
-void mlp::math::eval (...) {
-    // no-op
-}
+
 
 #endif
 
