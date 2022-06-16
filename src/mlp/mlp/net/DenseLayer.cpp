@@ -4,15 +4,17 @@
 
 using namespace mlp::math;
 
+#if defined(MLP_USE_BOOST_BACKEND)
 DenseLayer::DenseLayer (size_t input_size, size_t output_size) {
-    this->weights = mlp::math::randu(output_size, input_size) - 0.5;
-    this->biases = mlp::math::randu(output_size, 1) - 0.5;
+    this->weights = mlp::math::randu(output_size, input_size) ;
+    this->biases = mlp::math::randu(output_size, 1);
+    std::transform(this->weights.data().begin(), this->weights.data().end(), this->weights.data().begin(), [](double x) { return x - 0.5; });
+    std::transform(this->biases.data().begin(), this->biases.data().end(), this->biases.data().begin(), [](double x) { return x - 0.5; });
 }
 
-#if defined(MLP_USE_BOOL_BACKEND)
 DenseLayer::Matrix DenseLayer::forward (const DenseLayer::Matrix& input_) {
     this->input = input_;
-    Matrix result = this->weights % this->input;
+    Matrix result = mlp::math::prod(this->weights, this->input);
     for (size_t i = 0; i < result.size2(); ++i) {
         mlp::math::column(result, i) += mlp::math::column(this->biases, 0);
     }
@@ -22,9 +24,9 @@ DenseLayer::Matrix DenseLayer::forward (const DenseLayer::Matrix& input_) {
 DenseLayer::Matrix DenseLayer::backward (const DenseLayer::Matrix& gradient, double learning_rate) {
     const auto m = gradient.size2();
 
-    Matrix next_gradient = mlp::math::trans(this->weights) % gradient;
-    const Matrix weights_gradient = gradient % mlp::math::trans(this->input) / (double) m;
-    const Matrix bias_gradient = gradient % mlp::math::full(m, 1, 1.0) / (double) m;
+    Matrix next_gradient = prod(trans(this->weights), gradient);
+    const Matrix weights_gradient = prod(gradient, trans(this->input)) / (double) m;
+    const Matrix bias_gradient = prod(gradient, constant(m, 1, 1.0)) / (double) m;
 
     this->weights -= weights_gradient * learning_rate;
     this->biases -= bias_gradient * learning_rate;
@@ -32,6 +34,11 @@ DenseLayer::Matrix DenseLayer::backward (const DenseLayer::Matrix& gradient, dou
 }
 
 #elif defined(MLP_USE_ARRAYFIRE_BACKEND)
+DenseLayer::DenseLayer (size_t input_size, size_t output_size) {
+    this->weights = mlp::math::randu(output_size, input_size) - 0.5;
+    this->biases = mlp::math::randu(output_size, 1) - 0.5;
+}
+
 DenseLayer::Matrix DenseLayer::forward (const DenseLayer::Matrix& input_) {
     this->input = input_;
     auto wx = mlp::math::matmul(this->weights, this->input);

@@ -23,8 +23,8 @@ double MSELoss::loss (const MSELoss::Matrix& real_value_) const {
     const auto diff = this->output - real_value_;
     const auto mse = diff * diff;
 #if defined(MLP_USE_BOOST_BACKEND)
-    const auto ones = mlp::math::full(mse.size1(), 1.0);
-    const auto sum_cols = ones % mse;
+    const auto ones = constant(mse.size1(), 1.0);
+    const auto sum_cols = prod(ones, mse);
     return mlp::math::sum(sum_cols) / static_cast<double>(output.size2());
 #elif defined(MLP_USE_ARRAYFIRE_BACKEND)
     mlp::math::eval(mse);

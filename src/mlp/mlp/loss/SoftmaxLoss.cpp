@@ -25,8 +25,8 @@ MLP_MATH_MAKE_FUNCTOR(log, [] (double x) {return std::log(x);});
 double SoftmaxLoss::loss (const SoftmaxLoss::Matrix& real_value_) const {
     const auto logs = mlp::math::log(this->output);
     const auto ce = -(real_value_ * logs);
-    const auto ones = mlp::math::full(this->output.size1(), 1.0);
-    const auto sum_cols = ones % ce;
+    const auto ones = constant(this->output.size1(), 1.0);
+    const auto sum_cols = prod(ones, ce);
     return mlp::math::sum(sum_cols) / static_cast<double>(this->output.size2());
 }
 
