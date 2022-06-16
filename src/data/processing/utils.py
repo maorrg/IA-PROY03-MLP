@@ -5,13 +5,10 @@ import os
 import pywt
 
 def get_vector_from_data(imagen, iterations):
-
-    LL, (LH, HL, HH) = pywt.dwt2(imagen, 'haar')
-    for _ in range(iterations - 1):
-        LL, (LH, HL, HH) = pywt.dwt2(LL, 'haar')
-    return LL.flatten()
+    data = imagen.flatten()
+    return pywt.wavedecn(data=data, wavelet='haar', mode='symmetric', level=iterations)[0] 
     
-def get_data_wavelet(path_dir, iterations, width=100, height=100):
+def get_data_wavelet(path_dir, iterations,newshape=(64, 64)):
 
     x = []
     image_names = []
@@ -19,9 +16,9 @@ def get_data_wavelet(path_dir, iterations, width=100, height=100):
     for train_img in os.listdir(path_dir):
         image_path = f"{path_dir}\\{train_img}"
         img = Image.open(image_path)
-        newsize = (width, height)
-        img = img.resize(newsize)
-        vector_caracteristico = get_vector_from_data(img, iterations)
+        img = img.resize(newshape)
+        img_np = np.asarray(img)
+        vector_caracteristico = get_vector_from_data(img_np, iterations)
         x.append(vector_caracteristico)
         image_names.append(train_img)
     return np.asarray(x), np.asarray(image_names)

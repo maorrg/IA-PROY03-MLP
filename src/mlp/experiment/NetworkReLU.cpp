@@ -6,10 +6,11 @@
 
 NetworkReLU::NetworkReLU (size_t input_size, size_t output_size, const NetworkSettings& settings)
     : Network(settings),
-      dense1(input_size, 8),
-      dense2(8, 8),
-      dense3(8, output_size) {
+      dense1(input_size, 10),
+      dense2(10, 10),
+      dense3(10, output_size) {
 }
+
 NetworkReLU::Matrix NetworkReLU::forward (const NetworkReLU::Matrix& input) {
     auto x = dense1.forward(input);
     x = relu1.forward(x);
@@ -19,6 +20,7 @@ NetworkReLU::Matrix NetworkReLU::forward (const NetworkReLU::Matrix& input) {
     x = softmax.forward(x);
     return x;
 }
+
 void NetworkReLU::backward (const NetworkReLU::Matrix& real_value) {
     loss = softmax.loss(real_value);
     auto x = softmax.backward(real_value, settings.learning_rate);
@@ -28,6 +30,7 @@ void NetworkReLU::backward (const NetworkReLU::Matrix& real_value) {
     x = relu1.backward(x, settings.learning_rate);
     dense1.backward(x, settings.learning_rate);
 }
+
 void NetworkReLU::on_epoch_callback (size_t epoch) {
     std::cout << "Epoch: " << epoch << ' ' << "Loss: " << loss << std::endl;
 }

@@ -10,34 +10,32 @@
 #include <boost/numeric/ublas/io.hpp>
 #include <random>
 
+template<class E1, class E2>
+inline auto operator * (
+    const boost::numeric::ublas::matrix_expression<E1>& a,
+    const boost::numeric::ublas::matrix_expression<E2>& b
+) {
+    return boost::numeric::ublas::element_prod(a, b);
+}
+
 namespace mlp::math {
     using namespace boost::numeric::ublas;
     using Matrix = matrix<double>;
     using Vector = vector<double>;
 
-    template<class E1, class E2>
-    inline auto operator * (const matrix_expression<E1>& a, const matrix_expression<E2>& b) {
-        return element_prod(a, b);
-    }
-
+    size_t size (const Matrix& m, size_t dim);
     Vector constant (size_t n, double value);
-
     Matrix constant (size_t n, size_t m, double value);
-
     Matrix zeros (size_t n, size_t m);
-
     Matrix ones (size_t n, size_t m);
-
-    Matrix randu(size_t n, size_t m);
-
-    double random ();
-
-    void set_seed(unsigned seed);
-
-    void setDevice(int);
-
-    void info();
+    Matrix randu (size_t n, size_t m);
+    void setSeed (unsigned seed);
+    template<class ... Args>
+    inline void eval (const Args& ...) {};
+    void setDevice (int);
+    void info ();
 };
+
 
 #define MLP_MATH_MAKE_FUNCTOR(NAME, OP) \
 namespace functor { \
