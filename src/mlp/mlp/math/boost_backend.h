@@ -7,7 +7,7 @@
 
 #include <boost/numeric/ublas/matrix.hpp>
 #include <boost/numeric/ublas/operation.hpp>
-#include <boost/numeric/ublas/io.hpp>
+#include <iomanip>
 #include <random>
 
 template<class E1, class E2>
@@ -29,12 +29,18 @@ namespace mlp::math {
     Matrix zeros (size_t n, size_t m);
     Matrix ones (size_t n, size_t m);
     Matrix randu (size_t n, size_t m);
+    Matrix randn (size_t n, size_t m);
+    inline Matrix transpose (const Matrix& m) {return trans(m);}
+    vector<int> shuffle_idx (int size);
     void setSeed (unsigned seed);
+
     template<class ... Args>
     inline void eval (const Args& ...) {};
     void setDevice (int);
     void info ();
 };
+
+std::ostream& operator << (std::ostream& os, const boost::numeric::ublas::matrix<double>& mat);
 
 
 #define MLP_MATH_MAKE_FUNCTOR(NAME, OP) \

@@ -6,6 +6,7 @@
 #define UNTITLED21_NETWORKRELU_H
 
 #include <mlp/net/Network.h>
+#include <functional>
 
 class NetworkReLU : public Network {
 public:
@@ -17,17 +18,20 @@ public:
 
     void backward (const Matrix& real_value) override;
 
-protected:
+    double calculate_loss (const Matrix& real_value) const;
+
+public:
+    std::function<void(NetworkReLU*, size_t)> on_epoch_callback_;
+    double loss = NAN;
+
     void on_epoch_callback (size_t epoch) override;
 
-private:
     DenseLayer dense1;
     ReLU relu1;
     DenseLayer dense2;
     ReLU relu2;
     DenseLayer dense3;
     SoftmaxLoss softmax;
-    double loss = NAN;
 };
 
 

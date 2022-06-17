@@ -6,10 +6,10 @@ using namespace mlp::math;
 
 #if defined(MLP_USE_BOOST_BACKEND)
 DenseLayer::DenseLayer (size_t input_size, size_t output_size) {
-    this->weights = mlp::math::randu(output_size, input_size) ;
+    this->weights = mlp::math::randu(output_size, input_size);
     this->biases = mlp::math::randu(output_size, 1);
-    std::transform(this->weights.data().begin(), this->weights.data().end(), this->weights.data().begin(), [](double x) { return x - 0.5; });
-    std::transform(this->biases.data().begin(), this->biases.data().end(), this->biases.data().begin(), [](double x) { return x - 0.5; });
+    std::transform(this->weights.data().begin(), this->weights.data().end(), this->weights.data().begin(), [](auto x){ return x - 0.5; });
+    std::transform(this->biases.data().begin(), this->biases.data().end(), this->biases.data().begin(), [](auto x){ return x - 0.5; });
 }
 
 DenseLayer::Matrix DenseLayer::forward (const DenseLayer::Matrix& input_) {

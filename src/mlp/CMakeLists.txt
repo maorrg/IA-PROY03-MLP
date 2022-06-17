@@ -13,6 +13,8 @@ set(PROJECT_SOURCES
         mlp/activation/Tanh.cpp
         mlp/net/Network.cpp
         experiment/NetworkReLU.cpp
+        experiment/input.cpp
+        experiment/train_test_split.cpp
         main.cpp
         )
 
@@ -21,21 +23,20 @@ target_include_directories(untitled21 PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_compile_options(untitled21 PRIVATE $<$<CXX_COMPILER_ID:MSVC>: /W4> $<$<NOT:$<CXX_COMPILER_ID:MSVC>>: -Wall -Wextra -Wpedantic>)
 
 
-if (MLP_USE_ARRAYFIRE) # use ArrayFire
-    add_definitions(-DMLP_USE_ARRAYFIRE_BACKEND=1)
-    find_package(ArrayFire REQUIRED)
-    target_include_directories(untitled21 PUBLIC ${ArrayFire_INCLUDE_DIRS})
-    target_link_libraries(untitled21 ${ArrayFire_LIBRARIES})
-    message(STATUS "ArrayFire version: ${ArrayFire_VERSION}")
-
-else(MLP_USE_ARRAYFIRE) # use Boost
+find_package(ArrayFire)
+if (NOT ArrayFire_FOUND OR MLP_USE_BOOST)
     add_definitions(-DMLP_USE_BOOST_BACKEND=1)
     find_package(Boost REQUIRED)
     target_include_directories(untitled21 PUBLIC ${Boost_INCLUDE_DIRS})
     target_link_libraries(untitled21 ${Boost_LIBRARIES})
-    message(STATUS "Boost version: ${Boost_VERSION}")
+    message(STATUS "Using Boost version: ${Boost_VERSION}")
+else()
+    add_definitions(-DMLP_USE_ARRAYFIRE_BACKEND=1)
+    target_include_directories(untitled21 PUBLIC ${ArrayFire_INCLUDE_DIRS})
+    target_link_libraries(untitled21 ${ArrayFire_LIBRARIES})
+    message(STATUS "Using ArrayFire version: ${ArrayFire_VERSION}")
 
-endif (MLP_USE_ARRAYFIRE)
+endif()
 
 
 message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")

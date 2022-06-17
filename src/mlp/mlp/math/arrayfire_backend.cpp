@@ -2,13 +2,20 @@
 
 #include <mlp/math/arrayfire_backend.h>
 
+
 using namespace mlp::math;
 
-static af::randomEngine engine = af::getDefaultRandomEngine();
-
 size_t mlp::math::size (const Matrix& m, size_t dim) { return m.dims((int) dim); }
-void mlp::math::setSeed (unsigned long long int seed) { engine.setSeed(seed); }
-Matrix mlp::math::zeros (size_t n, size_t m) { return af::constant(0, n, m); }
+void mlp::math::setSeed (unsigned long long int seed) { af::setSeed(seed); }
+Matrix mlp::math::zeros (size_t n, size_t m) { return af::constant(0, (int) n, (int) m); }
+Matrix mlp::math::shuffle_idx (size_t size) {
+    af::array tmp = af::randu((int) size, 1);
+    af::array val, idx;
+    af::sort(val, idx, tmp);
+    return idx;
+}
+
+
 std::ostream& operator << (std::ostream& os, const Matrix& mat) {
     const char* res = af::toString("", mat);
     os << res;
@@ -17,4 +24,4 @@ std::ostream& operator << (std::ostream& os, const Matrix& mat) {
 }
 
 
-#endif
+#endif // MLP_USE_ARRAYFIRE_BACKEND
