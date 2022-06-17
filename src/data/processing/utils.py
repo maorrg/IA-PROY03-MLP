@@ -14,7 +14,7 @@ def get_data_wavelet(path_dir, iterations,newshape=(64, 64)):
     image_names = []
 
     for train_img in os.listdir(path_dir):
-        image_path = f"{path_dir}\\{train_img}"
+        image_path = f"{path_dir}/{train_img}"
         img = Image.open(image_path)
         img = img.resize(newshape)
         img_np = np.asarray(img)

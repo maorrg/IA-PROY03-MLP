@@ -1,6 +1,7 @@
 #include <mlp/net/DenseLayer.h>
 #include <algorithm>
 #include <random>
+#include <boost/numeric/ublas/io.hpp>
 
 using namespace mlp::math;
 
