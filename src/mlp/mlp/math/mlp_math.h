@@ -6,9 +6,11 @@
 #define UNTITLED21_MLP_MATH_H
 #undef max
 #undef min
+#if defined(MLP_USE_ARRAYFIRE_BACKEND)
+#undef MLP_USE_BOOST_BACKEND
+#include <mlp/math/arrayfire_backend.h>
+#endif
 #if defined(MLP_USE_BOOST_BACKEND)
 #include <mlp/math/boost_backend.h>
-#elif defined(MLP_USE_ARRAYFIRE_BACKEND)
-#include <mlp/math/arrayfire_backend.h>
 #endif
 #endif

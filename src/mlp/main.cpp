@@ -12,17 +12,18 @@ int main () {
     mlp::math::info();
 //    mlp::math::setSeed(42);
 
+
     std::cout << "Loading dataset..." << std::endl;
     auto Xy = load_dataset("../../data/output/imageProcessingOutput/eigenvectors.csv");
     std::cout << "Dataset loaded. Processing..." << std::endl;
 
-    auto[Xy_train, Xy_test] = split_dataset(Xy, 0.7);
-    auto&[X_train, y_train] = Xy_train;
-    auto&[X_test, y_test] = Xy_test;
-    auto y_labels_train = y_train;
-    auto y_labels_test = y_train;
-    y_train = to_categorical(y_train, 10);
-    y_test = to_categorical(y_test, 10);
+    auto Xy_split = split_dataset(Xy, 0.7);
+
+    auto Xy_train = Xy_split.train, Xy_test = Xy_split.test;
+    auto X_train = Xy_train.data, y_train = Xy_train.labels;
+    auto X_test = Xy_test.data, y_test = Xy_test.labels;
+    auto y_labels_train = y_train, y_labels_test = y_test;
+    y_train = to_categorical(y_train, 10), y_test = to_categorical(y_test, 10);
 
     X_train = mlp::math::transpose(X_train);
     X_test = mlp::math::transpose(X_test);
