@@ -12,9 +12,8 @@ set(PROJECT_SOURCES
         mlp/activation/Sigmoid.cpp
         mlp/activation/Tanh.cpp
         mlp/net/Network.cpp
-        experiment/NetworkReLU.cpp
-        experiment/input.cpp
-        experiment/train_test_split.cpp
+        experiment/MLPClassifier.cpp
+        experiment/dataset_utils.cpp
         main.cpp
         )
 

@@ -75,6 +75,7 @@ NetworkMetrics MLPClassifier::metrics (const Matrix& X_test, const Matrix& y_tes
     auto y_labels_test = argmax(y_test, 0).as(f32);
     auto accuracy = sum<double>(y_labels_test == y_pred) / (double) n;
     auto precision = mean<double>(precision_m);
+
     auto recall = mean<double>(recall_m);
     auto f1_score = 2 * precision * recall / (precision + recall);
 
