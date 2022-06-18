@@ -34,3 +34,4 @@ ReLU::Matrix ReLU::backward (const ReLU::Matrix& gradient, double) {
     mlp::math::eval(output);
     return output;
 }
+const char* ReLU::name () const { return "ReLU"; }

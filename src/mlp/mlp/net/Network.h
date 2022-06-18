@@ -23,10 +23,14 @@ public:
 
 public:
     explicit Network (const NetworkSettings& settings);
-    void train (const Matrix& input, const Matrix& target);
+
+    virtual void train (const Matrix& input, const Matrix& target);
 
     virtual Matrix forward (const Matrix& input) = 0;
+
     virtual void backward (const Matrix& real_value) = 0;
+
+    virtual bool early_stop ();
 
 protected:
     virtual void on_epoch_callback (size_t epoch);

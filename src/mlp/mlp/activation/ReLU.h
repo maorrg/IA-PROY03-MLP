@@ -6,14 +6,16 @@
 #define UNTITLED21_RELU_H
 
 #include <mlp/net/Layer.h>
+#include "Activation.h"
 
-class ReLU : public Layer {
+class ReLU : public Activation {
 public:
     using Matrix = Layer::Matrix;
 public:
     ReLU () = default;
     Matrix forward (const Matrix& input_) override;
     Matrix backward (const Matrix& gradient, double learning_rate) override;
+    const char* name() const override;
 private:
     static Matrix relu (const Matrix& input_);
     static Matrix relu_derivative (const Matrix& input_);

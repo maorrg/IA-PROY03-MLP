@@ -6,14 +6,17 @@
 #define UNTITLED21_TANH_H
 
 #include <mlp/net/Layer.h>
+#include "Activation.h"
 
-class Tanh : public Layer {
+
+class Tanh : public Activation {
 public:
     using Matrix = Layer::Matrix;
 public:
     Tanh () = default;
     Matrix forward (const Matrix& input_) override;
     Matrix backward (const Matrix& gradient, double learning_rate) override;
+    const char* name() const override;
 private:
     static Matrix tanh (const Matrix& input_);
     static Matrix tanh_derivative (const Matrix& input_);

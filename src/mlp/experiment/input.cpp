@@ -14,7 +14,7 @@ static std::vector<std::string> parse_line (const std::string& line) {
     return entries;
 }
 
-Dataset load_dataset (const char* path) {
+Dataset load_dataset_from_file (const char* path) {
     std::vector<std::vector<double>> df;
 
     std::fstream file(path, std::ios::in);

@@ -28,6 +28,7 @@ namespace mlp::math {
     Matrix zeros(size_t n, size_t m);
     size_t size(const Matrix& mat, size_t dim);
     Matrix shuffle_idx(size_t size);
+    Matrix argmax(const Matrix& mat, size_t dim);
 }
 
 std::ostream& operator<<(std::ostream& os, const mlp::math::Matrix & mat);

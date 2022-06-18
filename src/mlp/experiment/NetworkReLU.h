@@ -8,29 +8,38 @@
 #include <mlp/net/Network.h>
 #include <functional>
 
+struct NetworkMetrics {
+    //    epoch,activation_function,train_loss,test_loss,accuracy,precision,recall,f1_score
+    double train_loss;
+    double test_loss;
+    double accuracy;
+    double precision;
+    double recall;
+    double f1_score;
+};
+
 class NetworkReLU : public Network {
 public:
     using Matrix = mlp::math::Matrix;
 
-    NetworkReLU (size_t input_size, size_t output_size, const NetworkSettings& settings);
-
-    Matrix forward (const Matrix& input) override;
-
-    void backward (const Matrix& real_value) override;
-
+public:
+    NetworkReLU (const std::vector<size_t>& sizes, const NetworkSettings& settings);
     double calculate_loss (const Matrix& real_value) const;
+    Matrix forward (const Matrix& input) override;
+    void backward (const Matrix& real_value) override;
+    NetworkMetrics metrics(const Matrix& input, const Matrix& output);
+
+    const char* act_name() const;
 
 public:
     std::function<void(NetworkReLU*, size_t)> on_epoch_callback_;
-    double loss = NAN;
 
+private:
     void on_epoch_callback (size_t epoch) override;
 
-    DenseLayer dense1;
-    ReLU relu1;
-    DenseLayer dense2;
-    ReLU relu2;
-    DenseLayer dense3;
+    double loss = NAN;
+    std::vector<DenseLayer> dense;
+    std::vector<std::unique_ptr<Activation>> act;
     SoftmaxLoss softmax;
 };
 

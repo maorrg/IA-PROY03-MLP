@@ -1,7 +1,7 @@
 #include "train_test_split.h"
 
 
-DatasetSplit split_dataset (const Dataset& dataset, double train_ratio) {
+DatasetSplit train_test_split (const Dataset& dataset, double train_ratio) {
     auto shuffled = shuffle_dataset(dataset);
     auto n = mlp::math::size(shuffled.data, 0);
     auto train_size = (int) ((float) n * train_ratio);

@@ -15,6 +15,13 @@ Matrix mlp::math::shuffle_idx (size_t size) {
     return idx;
 }
 
+#undef max
+Matrix mlp::math::argmax (const Matrix& mat, size_t dim) {
+    af::array res, ignored;
+    af::max(ignored, res, mat, (int) dim);
+    return res;
+}
+
 
 std::ostream& operator << (std::ostream& os, const Matrix& mat) {
     const char* res = af::toString("", mat);

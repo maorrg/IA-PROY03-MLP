@@ -38,6 +38,7 @@ Sigmoid::Matrix Sigmoid::backward (const Sigmoid::Matrix& gradient, double) {
     mlp::math::eval(n_gradient);
     return n_gradient;
 }
+const char* Sigmoid::name () const { return "Sigmoid"; }
 
 
 

@@ -51,9 +51,8 @@ SoftmaxLoss::Matrix SoftmaxLoss::backward (const SoftmaxLoss::Matrix& real_value
 }
 
 double SoftmaxLoss::loss (const SoftmaxLoss::Matrix& real_value_) const {
-    const auto ce = -(real_value_ * mlp::math::log(this->output + 1e-8));
-    mlp::math::eval(ce);
-    auto result = mlp::math::sum<double>(ce) / (double) ce.dims(1);
+    const auto ce = -(real_value_ * mlp::math::log(this->output + 1e-12));
+    auto result = mlp::math::sum<double>(ce) / (double) ce.elements();
     return result;
 }
 #endif

@@ -5,6 +5,6 @@
 
 Dataset shuffle_dataset (const Dataset& dataset);
 
-DatasetSplit split_dataset (const Dataset& dataset, double train_ratio);
+DatasetSplit train_test_split (const Dataset& dataset, double train_ratio);
 
 #endif //UNTITLED21_SPLIT_H

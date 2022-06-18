@@ -32,3 +32,5 @@ Tanh::Matrix Tanh::backward (const Tanh::Matrix& gradient, double) {
     mlp::math::eval(n_gradient);
     return n_gradient;
 }
+
+const char* Tanh::name () const { return "Tanh"; }

@@ -3,10 +3,12 @@
 
 #include <mlp/math/mlp_math.h>
 
+
 struct Dataset {
     mlp::math::Matrix data;
     mlp::math::Matrix labels;
 };
+
 
 struct DatasetSplit {
     Dataset train;

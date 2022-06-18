@@ -8,7 +8,7 @@
 #include <fstream>
 #include "data.h"
 
-Dataset load_dataset (const char* path);
+Dataset load_dataset_from_file (const char* path);
 
 mlp::math::Matrix to_categorical (const mlp::math::Matrix& mat, int num_classes);
 
