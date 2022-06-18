@@ -2,11 +2,11 @@
 // Created by Esteban on 6/16/2022.
 //
 
-#include "NetworkReLU.h"
+#include "MLPClassifier.h"
 
 
 
-NetworkReLU::Matrix NetworkReLU::forward (const NetworkReLU::Matrix& input) {
+MLPClassifier::Matrix MLPClassifier::forward (const MLPClassifier::Matrix& input) {
 //    auto x = dense1.forward(input);
 //    x = act1.forward(x);
 ////    x = dense2.forward(x);
@@ -24,7 +24,7 @@ NetworkReLU::Matrix NetworkReLU::forward (const NetworkReLU::Matrix& input) {
     return x;
 }
 
-void NetworkReLU::backward (const NetworkReLU::Matrix& real_value) {
+void MLPClassifier::backward (const MLPClassifier::Matrix& real_value) {
     this->loss = this->calculate_loss(real_value);
 
     auto x = softmax.backward(real_value, settings.learning_rate);
@@ -42,25 +42,18 @@ void NetworkReLU::backward (const NetworkReLU::Matrix& real_value) {
 //    dense1.backward(x, settings.learning_rate);
 }
 
-void NetworkReLU::on_epoch_callback (size_t epoch) {
-    on_epoch_callback_(this, epoch);
+void MLPClassifier::on_epoch_callback (size_t epoch) {
+    if (on_epoch_callback_) {
+        on_epoch_callback_(this, epoch);
+    }
 }
 
-double NetworkReLU::calculate_loss (const NetworkReLU::Matrix& real_value) const {
+double MLPClassifier::calculate_loss (const MLPClassifier::Matrix& real_value) const {
     return softmax.loss(real_value);
 }
 
-NetworkReLU::NetworkReLU (const std::vector<size_t>& sizes, const NetworkSettings& settings)
-    : Network(settings) {
-    dense.emplace_back(sizes[0], sizes[1]);
-    for (size_t i = 1; i < sizes.size() - 1; i++) {
-        act.emplace_back(std::make_unique<ReLU>());
-        dense.emplace_back(sizes[i], sizes[i + 1]);
-    }
-    std::cout << "NetworkReLU: " << sizes.size() << std::endl;
-}
 
-NetworkMetrics NetworkReLU::metrics (const Matrix& X_test, const Matrix& y_test)  {
+NetworkMetrics MLPClassifier::metrics (const Matrix& X_test, const Matrix& y_test)  {
     using namespace mlp::math;
 
     auto train_loss = this->loss;
@@ -88,4 +81,4 @@ NetworkMetrics NetworkReLU::metrics (const Matrix& X_test, const Matrix& y_test)
     return NetworkMetrics{train_loss, test_loss, accuracy, precision, recall, f1_score};
 }
 
-const char* NetworkReLU::act_name () const { return act[0]->name(); }
+const char* MLPClassifier::act_name () const { return act[0]->name(); }

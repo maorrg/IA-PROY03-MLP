@@ -6,9 +6,9 @@
 #define UNTITLED21_SIGMOID_H
 
 #include <mlp/net/Layer.h>
-#include "Activation.h"
+#include "ActivationLayer.h"
 
-class Sigmoid : public Activation {
+class Sigmoid : public ActivationLayer {
 public:
     using Matrix = Layer::Matrix;
 public:

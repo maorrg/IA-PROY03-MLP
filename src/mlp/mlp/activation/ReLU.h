@@ -6,9 +6,9 @@
 #define UNTITLED21_RELU_H
 
 #include <mlp/net/Layer.h>
-#include "Activation.h"
+#include "ActivationLayer.h"
 
-class ReLU : public Activation {
+class ReLU : public ActivationLayer {
 public:
     using Matrix = Layer::Matrix;
 public:

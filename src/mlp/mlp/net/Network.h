@@ -13,7 +13,7 @@
 
 
 struct NetworkSettings {
-    size_t epochs = 100;
+    size_t epochs = 1500;
     double learning_rate = 0.01;
 };
 

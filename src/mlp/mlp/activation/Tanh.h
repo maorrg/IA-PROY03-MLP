@@ -6,10 +6,10 @@
 #define UNTITLED21_TANH_H
 
 #include <mlp/net/Layer.h>
-#include "Activation.h"
+#include "ActivationLayer.h"
 
 
-class Tanh : public Activation {
+class Tanh : public ActivationLayer {
 public:
     using Matrix = Layer::Matrix;
 public:
